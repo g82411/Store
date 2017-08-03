@@ -16,15 +16,16 @@ def addPost(request):
     author = request.POST.get("author", "")
     label = request.POST.get("label", "")
     title = request.POST.get("title", "")
+    logger.debug(author)
     try:
         labelObject = Board.objects.get(BoardName=label)
     except ObjectDoesNotExist:
         labelObject = Board(BoardName=label)
         labelObject.save()
     try:
-        authorObject = Author.objects.get(authorName=label)
+        authorObject = Author.objects.get(authorName=author)
     except ObjectDoesNotExist:
-        authorObject = Author(authorName=label)
+        authorObject = Author(authorName=author)
         authorObject.save()
     try:
         article = Article(title=title, text=content, dateTime=date,
